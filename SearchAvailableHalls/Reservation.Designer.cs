@@ -27,6 +27,7 @@ namespace SearchAvailableHalls
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        /// 
         private void InitializeComponent()
         {
             this.lblDate = new System.Windows.Forms.Label();
@@ -35,7 +36,7 @@ namespace SearchAvailableHalls
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.lblEndTime = new System.Windows.Forms.Label();
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownNoOFStu = new System.Windows.Forms.NumericUpDown();
             this.lblStuNum = new System.Windows.Forms.Label();
             this.lblLogOut = new System.Windows.Forms.LinkLabel();
             this.BtnSearch = new System.Windows.Forms.Button();
@@ -45,7 +46,9 @@ namespace SearchAvailableHalls
             this.lblWelcome = new System.Windows.Forms.Label();
             this.mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             this.dataGridViewResults = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.cmbSelectedHall = new System.Windows.Forms.ComboBox();
+            this.lblSelectedHall = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownNoOFStu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +66,6 @@ namespace SearchAvailableHalls
             // 
             this.dtpDate.Location = new System.Drawing.Point(164, 62);
             this.dtpDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dtpDate.MinDate = new System.DateTime(2023, 1, 23, 0, 0, 0, 0);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(343, 31);
             this.dtpDate.TabIndex = 1;
@@ -80,15 +82,15 @@ namespace SearchAvailableHalls
             // 
             // dtpStart
             // 
-            this.dtpStart.CustomFormat = "hh:mm";
+            this.dtpStart.CustomFormat = "HH:mm";
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStart.Location = new System.Drawing.Point(164, 125);
             this.dtpStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dtpStart.MinDate = new System.DateTime(2023, 1, 23, 0, 0, 0, 0);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.ShowUpDown = true;
             this.dtpStart.Size = new System.Drawing.Size(127, 31);
             this.dtpStart.TabIndex = 3;
+            this.dtpStart.Value = new System.DateTime(2023, 2, 6, 8, 0, 0, 0);
             this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
             // 
             // lblEndTime
@@ -103,30 +105,30 @@ namespace SearchAvailableHalls
             // 
             // dtpEnd
             // 
-            this.dtpEnd.CustomFormat = "hh:mm";
+            this.dtpEnd.CustomFormat = "HH:mm";
             this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEnd.Location = new System.Drawing.Point(376, 125);
             this.dtpEnd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dtpEnd.MinDate = new System.DateTime(2023, 1, 23, 0, 0, 0, 0);
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.ShowUpDown = true;
             this.dtpEnd.Size = new System.Drawing.Size(127, 31);
             this.dtpEnd.TabIndex = 5;
+            this.dtpEnd.Value = new System.DateTime(2023, 2, 6, 9, 59, 0, 0);
             this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
             // 
-            // numericUpDown1
+            // numUpDownNoOFStu
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(790, 62);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.numUpDownNoOFStu.Location = new System.Drawing.Point(790, 62);
+            this.numUpDownNoOFStu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numUpDownNoOFStu.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(111, 31);
-            this.numericUpDown1.TabIndex = 7;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numUpDownNoOFStu.Name = "numUpDownNoOFStu";
+            this.numUpDownNoOFStu.Size = new System.Drawing.Size(111, 31);
+            this.numUpDownNoOFStu.TabIndex = 7;
+            this.numUpDownNoOFStu.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblStuNum
             // 
@@ -185,7 +187,7 @@ namespace SearchAvailableHalls
             // 
             // btnReserve
             // 
-            this.btnReserve.Location = new System.Drawing.Point(453, 656);
+            this.btnReserve.Location = new System.Drawing.Point(670, 665);
             this.btnReserve.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnReserve.Name = "btnReserve";
             this.btnReserve.Size = new System.Drawing.Size(112, 36);
@@ -197,7 +199,7 @@ namespace SearchAvailableHalls
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Location = new System.Drawing.Point(824, 5);
+            this.lblWelcome.Location = new System.Drawing.Point(724, 4);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(0, 25);
             this.lblWelcome.TabIndex = 14;
@@ -219,11 +221,31 @@ namespace SearchAvailableHalls
             this.dataGridViewResults.Size = new System.Drawing.Size(798, 407);
             this.dataGridViewResults.TabIndex = 15;
             // 
+            // cmbSelectedHall
+            // 
+            this.cmbSelectedHall.FormattingEnabled = true;
+            this.cmbSelectedHall.Location = new System.Drawing.Point(442, 668);
+            this.cmbSelectedHall.Name = "cmbSelectedHall";
+            this.cmbSelectedHall.Size = new System.Drawing.Size(197, 33);
+            this.cmbSelectedHall.TabIndex = 16;
+            // 
+            // lblSelectedHall
+            // 
+            this.lblSelectedHall.AutoSize = true;
+            this.lblSelectedHall.Location = new System.Drawing.Point(199, 671);
+            this.lblSelectedHall.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSelectedHall.Name = "lblSelectedHall";
+            this.lblSelectedHall.Size = new System.Drawing.Size(223, 25);
+            this.lblSelectedHall.TabIndex = 17;
+            this.lblSelectedHall.Text = "Selected Lecture Hall:";
+            // 
             // frmSearchHalls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 713);
+            this.ClientSize = new System.Drawing.Size(1028, 733);
+            this.Controls.Add(this.lblSelectedHall);
+            this.Controls.Add(this.cmbSelectedHall);
             this.Controls.Add(this.dataGridViewResults);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.btnReserve);
@@ -232,7 +254,7 @@ namespace SearchAvailableHalls
             this.Controls.Add(this.BtnSearch);
             this.Controls.Add(this.lblLogOut);
             this.Controls.Add(this.lblStuNum);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numUpDownNoOFStu);
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.lblEndTime);
             this.Controls.Add(this.dtpStart);
@@ -243,7 +265,7 @@ namespace SearchAvailableHalls
             this.Name = "frmSearchHalls";
             this.Text = "Search : Lecture Hall Availability";
             this.Load += new System.EventHandler(this.frmSearchHalls_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownNoOFStu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResults)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -258,7 +280,7 @@ namespace SearchAvailableHalls
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.Label lblEndTime;
         private System.Windows.Forms.DateTimePicker dtpEnd;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numUpDownNoOFStu;
         private System.Windows.Forms.Label lblStuNum;
         private System.Windows.Forms.LinkLabel lblLogOut;
         private System.Windows.Forms.Button BtnSearch;
@@ -268,6 +290,8 @@ namespace SearchAvailableHalls
         private System.Windows.Forms.Label lblWelcome;
         private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
         private System.Windows.Forms.DataGridView dataGridViewResults;
+        private System.Windows.Forms.ComboBox cmbSelectedHall;
+        private System.Windows.Forms.Label lblSelectedHall;
     }
 }
 

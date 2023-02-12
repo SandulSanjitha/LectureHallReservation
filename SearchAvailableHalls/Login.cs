@@ -22,6 +22,7 @@ namespace Login_Placeholder
         public frmLogIn()
         {
             InitializeComponent();
+            this.AcceptButton = BtnLogIn;
         }
 
         public void openSearch(object obj)
@@ -64,18 +65,20 @@ namespace Login_Placeholder
         {
 
             
-            String SqlString = "select PassHash from lecturer where LecID = @id";
+            String SqlString = "select LecName, PassHash from lecturer where LecID = @id";
 
 
             MySqlCommand command = new MySqlCommand(SqlString, conn);
             command.Parameters.AddWithValue("id", txtBoxUserId.Text.Trim());
             MySqlDataReader dataReader = command.ExecuteReader();
             String SqlOutput = "";
+            String UserName = "";
 
             while(dataReader.Read())
             {
                 SqlOutput = dataReader["PassHash"].ToString();
-                
+                UserName = dataReader["LecName"].ToString();
+
             }
 
             
@@ -90,8 +93,12 @@ namespace Login_Placeholder
 
                 //frmSearchHalls.frmSearchHallsInstance.welcome.Text = txtBoxUserId.Text;
 
+                
+                
 
                 frmSearchHalls nextForm = new frmSearchHalls();
+                nextForm.userID = txtBoxUserId.Text.Trim();
+                nextForm.userName = UserName;
                 this.Hide();
                 nextForm.ShowDialog();
                 this.Close();
@@ -113,5 +120,12 @@ namespace Login_Placeholder
             nextForm.ShowDialog();
             this.Close();
         }
+        /*private void TxtBoxPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                BtnLogIn.PerformClick();
+            }
+        }*/
     }
 }

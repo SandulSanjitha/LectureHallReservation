@@ -19,6 +19,7 @@ namespace SearchAvailableHalls
         public frmRegister()
         {
             InitializeComponent();
+            this.AcceptButton = btnAdd;
         }
 
         public void Register_Load(object sender, EventArgs e)
