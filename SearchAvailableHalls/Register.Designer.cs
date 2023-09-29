@@ -29,6 +29,7 @@ namespace SearchAvailableHalls
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRegister));
             this.lblLecID = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -46,66 +47,74 @@ namespace SearchAvailableHalls
             // lblLecID
             // 
             this.lblLecID.AutoSize = true;
-            this.lblLecID.Location = new System.Drawing.Point(133, 94);
+            this.lblLecID.Location = new System.Drawing.Point(70, 65);
+            this.lblLecID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLecID.Name = "lblLecID";
-            this.lblLecID.Size = new System.Drawing.Size(117, 25);
+            this.lblLecID.Size = new System.Drawing.Size(60, 13);
             this.lblLecID.TabIndex = 0;
             this.lblLecID.Text = "Lecturer ID";
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(133, 166);
+            this.lblName.Location = new System.Drawing.Point(70, 102);
+            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(68, 25);
+            this.lblName.Size = new System.Drawing.Size(35, 13);
             this.lblName.TabIndex = 2;
             this.lblName.Text = "Name";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(348, 160);
+            this.txtName.Location = new System.Drawing.Point(178, 99);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(299, 31);
+            this.txtName.Size = new System.Drawing.Size(152, 20);
             this.txtName.TabIndex = 3;
             // 
             // lblPass
             // 
             this.lblPass.AutoSize = true;
-            this.lblPass.Location = new System.Drawing.Point(133, 238);
+            this.lblPass.Location = new System.Drawing.Point(70, 140);
+            this.lblPass.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPass.Name = "lblPass";
-            this.lblPass.Size = new System.Drawing.Size(106, 25);
+            this.lblPass.Size = new System.Drawing.Size(53, 13);
             this.lblPass.TabIndex = 4;
             this.lblPass.Text = "Password";
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(348, 233);
+            this.txtPass.Location = new System.Drawing.Point(178, 137);
+            this.txtPass.Margin = new System.Windows.Forms.Padding(2);
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(299, 31);
+            this.txtPass.Size = new System.Drawing.Size(152, 20);
             this.txtPass.TabIndex = 5;
             // 
             // lblConfirm
             // 
             this.lblConfirm.AutoSize = true;
-            this.lblConfirm.Location = new System.Drawing.Point(133, 332);
+            this.lblConfirm.Location = new System.Drawing.Point(70, 189);
+            this.lblConfirm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblConfirm.Name = "lblConfirm";
-            this.lblConfirm.Size = new System.Drawing.Size(186, 25);
+            this.lblConfirm.Size = new System.Drawing.Size(91, 13);
             this.lblConfirm.TabIndex = 6;
             this.lblConfirm.Text = "Confirm Password";
             // 
             // txtConfirm
             // 
-            this.txtConfirm.Location = new System.Drawing.Point(348, 325);
+            this.txtConfirm.Location = new System.Drawing.Point(178, 185);
+            this.txtConfirm.Margin = new System.Windows.Forms.Padding(2);
             this.txtConfirm.Name = "txtConfirm";
-            this.txtConfirm.Size = new System.Drawing.Size(299, 31);
+            this.txtConfirm.Size = new System.Drawing.Size(152, 20);
             this.txtConfirm.TabIndex = 7;
             this.txtConfirm.UseSystemPasswordChar = true;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(121, 408);
+            this.btnAdd.Location = new System.Drawing.Point(64, 228);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(177, 47);
+            this.btnAdd.Size = new System.Drawing.Size(88, 24);
             this.btnAdd.TabIndex = 8;
             this.btnAdd.Text = "Add User";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -113,9 +122,10 @@ namespace SearchAvailableHalls
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(319, 408);
+            this.btnClear.Location = new System.Drawing.Point(164, 228);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(2);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(177, 47);
+            this.btnClear.Size = new System.Drawing.Size(88, 24);
             this.btnClear.TabIndex = 9;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -123,9 +133,10 @@ namespace SearchAvailableHalls
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(521, 408);
+            this.btnCancel.Location = new System.Drawing.Point(264, 228);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(177, 47);
+            this.btnCancel.Size = new System.Drawing.Size(88, 24);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -134,9 +145,10 @@ namespace SearchAvailableHalls
             // ckBxShow
             // 
             this.ckBxShow.AutoSize = true;
-            this.ckBxShow.Location = new System.Drawing.Point(348, 279);
+            this.ckBxShow.Location = new System.Drawing.Point(178, 161);
+            this.ckBxShow.Margin = new System.Windows.Forms.Padding(2);
             this.ckBxShow.Name = "ckBxShow";
-            this.ckBxShow.Size = new System.Drawing.Size(197, 29);
+            this.ckBxShow.Size = new System.Drawing.Size(102, 17);
             this.ckBxShow.TabIndex = 11;
             this.ckBxShow.Text = "Show Password";
             this.ckBxShow.UseVisualStyleBackColor = true;
@@ -144,17 +156,21 @@ namespace SearchAvailableHalls
             // 
             // mTxtLecID
             // 
-            this.mTxtLecID.Location = new System.Drawing.Point(348, 88);
+            this.mTxtLecID.Location = new System.Drawing.Point(178, 62);
+            this.mTxtLecID.Margin = new System.Windows.Forms.Padding(2);
             this.mTxtLecID.Mask = "LL00000";
             this.mTxtLecID.Name = "mTxtLecID";
-            this.mTxtLecID.Size = new System.Drawing.Size(299, 31);
+            this.mTxtLecID.Size = new System.Drawing.Size(152, 20);
             this.mTxtLecID.TabIndex = 1;
             // 
             // frmRegister
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(847, 548);
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = global::SearchAvailableHalls.Properties.Resources.registerBG;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(424, 285);
             this.Controls.Add(this.mTxtLecID);
             this.Controls.Add(this.ckBxShow);
             this.Controls.Add(this.btnCancel);
@@ -167,8 +183,11 @@ namespace SearchAvailableHalls
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblLecID);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "frmRegister";
-            this.Text = "Register";
+            this.Text = "New User  : Lecture Hall Reservation";
             this.Load += new System.EventHandler(this.Register_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

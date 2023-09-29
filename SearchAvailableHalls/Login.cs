@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SearchAvailableHalls;
+using System;
+using System.Windows.Forms;
 
 namespace Login_Placeholder
 {
-    
+
     public partial class frmLogIn : Form
     {
         MySqlConnection conn = new MySqlConnection();
@@ -32,85 +24,88 @@ namespace Login_Placeholder
 
         public void frmLogIn_Load(object sender, EventArgs e)
         {
+            TxtBoxPass.UseSystemPasswordChar = true;
+
             String server = "localhost";
             String uid = "root";
             String pwd = "root";
             String db = "lechallres";
 
             String connString = ("server=" + server + ";" + "uid=" + uid + ";" + "pwd=" + pwd + ";" + "database=" + db);
-            
+
+            //Exeption handling
             try
             {
                 conn.ConnectionString = connString;
                 conn.Open();
+                conn.Close();
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-
             
-
         }
-
-        /*private void TxtBoxPass_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                BtnLogIn.PerformClick();
-            }
-        }*/
 
         public void BtnLogIn_Click(object sender, EventArgs e)
         {
-
+            //Validation - User id_1
+            if (string.IsNullOrEmpty(txtBoxUserId.Text) || txtBoxUserId.Text.Length != 7)
+            {
+                MessageBox.Show("Check you user ID and try again.", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtBoxUserId.Focus();
+                return;
+            }
             
-            String SqlString = "select LecName, PassHash from lecturer where LecID = @id";
-
-
-            MySqlCommand command = new MySqlCommand(SqlString, conn);
-            command.Parameters.AddWithValue("id", txtBoxUserId.Text.Trim());
-            MySqlDataReader dataReader = command.ExecuteReader();
-            String SqlOutput = "";
+            String SqlOutput = null;
             String UserName = "";
 
-            while(dataReader.Read())
+            //Exeption handling
+            try
             {
-                SqlOutput = dataReader["PassHash"].ToString();
-                UserName = dataReader["LecName"].ToString();
+                String SqlString = "select LecName, PassHash from lecturer where LecID = @id";
+                MySqlCommand command = new MySqlCommand(SqlString, conn);
+                command.Parameters.AddWithValue("id", txtBoxUserId.Text.Trim());
+                conn.Open();
+                MySqlDataReader dataReader = command.ExecuteReader();
 
-            }
+                while (dataReader.Read())
+                {
+                    SqlOutput = dataReader["PassHash"].ToString();
+                    UserName = dataReader["LecName"].ToString();
 
-            
-            if ( String.Compare( SqlOutput, TxtBoxPass.Text) != 0)
-            {
-                MessageBox.Show("Incorrect Password.");
-            }
-            else
-            {
-
+                }
+                dataReader.Close();
                 conn.Close();
-
-                //frmSearchHalls.frmSearchHallsInstance.welcome.Text = txtBoxUserId.Text;
-
-                
-                
-
-                frmSearchHalls nextForm = new frmSearchHalls();
-                nextForm.userID = txtBoxUserId.Text.Trim();
-                nextForm.userName = UserName;
-                this.Hide();
-                nextForm.ShowDialog();
-                this.Close();
             }
-            
-            dataReader.Close();
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-        }
+            //Validation - User id_2
+            if (string.IsNullOrEmpty(SqlOutput))
+            {
+                MessageBox.Show("That user id dosen't exist. Enter a different id or create a new one.", "User does not exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtBoxUserId.Focus();
+                return;
+            }
 
-        public void frmLogIn_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
+            //Validate - Password
+            if (String.Compare(SqlOutput, TxtBoxPass.Text) != 0)
+            {
+                MessageBox.Show("The password you entered is incorrect. Please try again.", "Incorrect Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TxtBoxPass.Focus();
+                return;
+            }
+
+            frmSearchHalls nextForm = new frmSearchHalls();
+            nextForm.userID = txtBoxUserId.Text.Trim();
+            nextForm.userName = UserName;
+            this.Hide();
+            nextForm.ShowDialog();
+            this.Close();
+
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -120,12 +115,11 @@ namespace Login_Placeholder
             nextForm.ShowDialog();
             this.Close();
         }
-        /*private void TxtBoxPass_KeyDown(object sender, KeyEventArgs e)
+
+        private void ckBxShow_CheckedChanged(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Return)
-            {
-                BtnLogIn.PerformClick();
-            }
-        }*/
+            TxtBoxPass.UseSystemPasswordChar = ckBxShow.Checked ? false : true;
+        }
+
     }
 }

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Login_Placeholder;
+﻿using Login_Placeholder;
 using MySql.Data.MySqlClient;
+using System;
+using System.Windows.Forms;
 
 namespace SearchAvailableHalls
 {
@@ -35,6 +28,7 @@ namespace SearchAvailableHalls
             {
                 conn.ConnectionString = connString;
                 conn.Open();
+                conn.Close();
                 //msg = "Connection is opend";
                 //MessageBox.Show(msg);
             }
@@ -69,26 +63,64 @@ namespace SearchAvailableHalls
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
+            //Validation
+            if (mTxtLecID.Text.Length != 7)
+            {
+                MessageBox.Show("The lecturer ID is not valid. Please check and try again.", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mTxtLecID.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show("Your name is required!", "Missing required information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtName.Focus();
+                return;
+            }
+
+            if (txtPass.Text.Length < 8)
+            {
+                MessageBox.Show("Your password needs to be at least 8 characters long!", "Password is too short", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPass.Focus();
+                return;
+            }
+
             if (String.Compare(txtPass.Text, txtConfirm.Text) != 0)
             {
-                MessageBox.Show("The password confirmation does not match.");
+                MessageBox.Show("The password does not match.", "Password not confirmed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtConfirm.Focus();
+                return;
             }
-            else
+
+            //New user adding
+            try
             {
-                String SqlString = "insert into Lecturer values ('" + mTxtLecID.Text + "', '" + txtName.Text + "', '"+ txtPass.Text + "');";
-                //String SqlOutput;
-                MySqlCommand command = new MySqlCommand(SqlString,conn);
+                conn.Open();
+                String SqlString = "insert into Lecturer values ('" + mTxtLecID.Text + "', '" + txtName.Text + "', '" + txtPass.Text + "');";
+                MySqlCommand command = new MySqlCommand(SqlString, conn);
                 MySqlDataReader rdr = command.ExecuteReader();
                 conn.Close();
-                MessageBox.Show("User : " + txtName.Text + " is added.");
+                MessageBox.Show("New user Added: " + txtName.Text + "!");
 
                 frmLogIn nextForm = new frmLogIn();
                 this.Hide();
                 nextForm.ShowDialog();
                 this.Close();
             }
-            
+            catch (MySqlException ex)
+            {
+                //Exeption handelling
+                if (ex.Message.Contains("Duplicate entry"))
+                {
+                    // Handle the duplicate entry error
+                    MessageBox.Show("A user with this ID already exists!", "Account exisits", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    // Handle any other exception
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
